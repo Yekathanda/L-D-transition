@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Page with Dark/Light Mode</title>
+    <style>
+        /* Base styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container for the button */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: var(--button-bg);
+            border: none;
+            color: var(--button-color);
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        /* Header styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--header-bg);
+            position: relative;
+            /*z-index: 10;*/
+            
+        }
+
+        .nav-toggle {
+            display: none;
+            
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: underline;
+            color: var(--text-color);
+            font-size: 18px;
+        }
+
+        .nav-menu a:hover {
+            text-decoration: overline;
+        }
+
+        /* Dark/Light Mode Switch */
+        .switch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 24px;
+            background-color: var(--switch-bg);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .switch .switch-inner {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--switch-circle-color);
+            transition: transform 0.3s;
+        }
+
+        .switch-on .switch-inner {
+            transform: translateX(15px);
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: var(--header-bg);
+                width: 250px;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 30px;
+                color: var(--text-color);
+            }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            --background-color: #333;
+            --text-color: #fff;
+            --button-bg: #444;
+            --button-color: #fff;
+            --button-hover-bg: #555;
+            --header-bg: #222;
+            --switch-bg: #555;
+            --switch-circle-color: #fff;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            --background-color: #fff;
+            --text-color: #333;
+            --button-bg: #007bff;
+            --button-color: #fff;
+            --button-hover-bg: #0056b3;
+            --header-bg: #f1f1f1;
+            --switch-bg: #ccc;
+            --switch-circle-color: #fff;
+        }
+
+        /* Apply base background color */
+        body {
+            background-color: var(--background-color);
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+
+<body class="light-mode">
+    <header>
+        <div class="nav-toggle" onclick="toggleMenu()">&#9776;</div>
+        <div class="nav-menu" id="nav-menu">
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+        </div>
+        <div class="switch" onclick="toggleDarkMode()">
+            <div class="switch-inner"></div>
+        </div>
+    </header>
+
+    <div class="button-container">
+        <button>Button</button>
+    </div>
+
+    <script>
+        const body = document.querySelector('body');
+        const switchElement = document.querySelector('.switch');
+        const navMenu = document.getElementById('nav-menu');
+
+        // Function to toggle dark/light mode
+        function toggleDarkMode() {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            switchElement.classList.toggle('switch-on');
+        }
+
+        // Function to toggle mobile navigation menu
+        function toggleMenu() {
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
